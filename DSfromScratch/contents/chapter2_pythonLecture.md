@@ -184,6 +184,9 @@ x, y = y, x
 
 ### True와 False
 
+다른 곳에도 적어놓았지만, True와 False는 bool타입이다. 그런데 bool타입은 int타입을 상속하고 있다는 점을 기억하라.
+
+
 ## 기본기에서 한 걸음 나아가기
 
 ### 정렬
@@ -194,7 +197,91 @@ x, y = y, x
 
 ### 난수 생성
 
+데이터 과학을 하다 보면 난수(random number)를 생성해야 할 때가 자주있다. 이때는 random모듈을 사용할 수 있다.  
+이 때는 random모듈을 사용할 수 있다.  
+
+```{.py}
+import random
+
+four_uniform_randoms = [random.random() for _ in range(4)]
+
+# random.random()은 float타입의 
+# 0과 1사이의 난수를 생성한다.
+# 앞으로 가장 자주 사용할 함수이다.
+```
+
+만약 동일한 난수를 계속 사용하고 싶다면 random.seed를 통해 매번 고정된 난수를 생성하면 된다.  
+
+```{.py}
+# 여기서 궁금한게 하나 생겼다. print는 파이썬의 연산자인가?
+
+random.seed(10) # seed를 10으로 설정
+print random.random() # 0.57이 나왔다고 하자.
+random.seed(10) # seed를 다시 10으로 설정해도 
+print random.random() # 역시나 0.57이 출력된다.
+```
+
+인자가 1개 혹은 2개인 random.randrange 메서드를 사용하면 range()에 대항하는 구간 안에서 난수를 생성할 수 있다.  
+
+```{.py}
+random.randrange(10) # range(10) = [0, 1, 2, 3, ..., 9]에서 난수 생성
+random.randrange(3, 6) # [3, 4, 5]에서 난수를 생성
+```
+random 모듈에는 가끔씩 사용하지만 유용한 여러 함수가 존재한다.  
+random.shuffle은 list의 항목을 임의 순서로 재정렬해 준다.
+
+```{.py}
+up_to_ten = range(10)
+random.shuffle(up_to_ten)
+print up_to_ten
+
+# 예를 들어 [2, 5, 1, 9, 7, 3, 8, 6, 4, 0] (결과는 제각각일 것이다.)
+```
+
+random.choice 메서드를 사용하면 list에서 임의의 항목을 하나 선택할 수 있다.  
+
+```{.py}
+my_best_friend = random.choice(["Alice", "bob", "Charlie"]) # 뭐가 되었든 셋중에 하나가 나올 것이다.
+```
+
+그리고 random.sample을 사용하면 list에서 중복이 허용되지 않는 임의의 표본 list를 만들 수 있다.  
+
+```{.py}
+lottery_numbers = range(60)
+winning_numbers = random.sample(lottery_numbers, 6) # 예를 들어, [16, 36, 10, 6, 25, 9]
+```
+
+만약 중복이 허용되는 임의의 표본 list를 만들고 싶다면 random.choice 메서드를 여러 번 사용하면 된다.  
+
+```{.py}
+four_with_replacement = [random.choice(range(10))
+						 for _ in range(4)]
+# 예를 들어, [9, 4, 4, 2]
+```
 ### 정규표현식
+
+정규표현식(regular expressions), 또는 regex를 사용하면 문자열을 찾을 수 있다.  
+정규표현식은 매우 유용하지만 책 한 권이 나올 정도로 상당히 복잡하다.  
+여기서는 간략한 예시를 통해서 맛만 보자.  
+
+```{.py}
+import re
+
+# 참고로 all과 any는 빌트인 함수로 컨테이너를 인수로 받는다.
+# any는 iteration을 하면서 하나라도 참이면 True를 반환한다. 전부 거짓이면 False를 반환한다.
+# 반대로 all은 iteration을 하면서 하나라도 참이 아니면 False를 반환하고 전부 참이면 True를 반환한다.
+
+print all([ # 모두 True
+		not re.match("a", "cat"), # 'cat'은 'a'로 시작하지 않기 때문에
+		re.search("a", "cat"), # 'cat'안에는 'a'가 존재하기 때문에
+		not re.search("c", "dog"), # 'dog'안에는 'c'가 존재하지 않기 때문에
+		3 == len(re.split("[ab]", "carbs")), # a 혹은 b 기준으로 나누면 ['c', 'r', 's']가 생성되기 때문에
+		"R-D-" == re.sub("[0-9]", "-", "R2D2") # 숫자를 "-"로 대체
+]) # 따라서 True가 출력된다.
+		
+
+
+```
 
 ### 객체 지향 프로그래밍
 
