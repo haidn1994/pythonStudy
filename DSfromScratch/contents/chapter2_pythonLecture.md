@@ -290,6 +290,9 @@ print all([ # 모두 True
 ### enumerate
 list를 반복하면 list의 항목과 인덱스가 모두 필요한 경우가 종종 있다.  
 
+그냥 루프를 사용하는 것은 파이썬스럽지 못하다.  
+가장 좋은 방법은 enumerate를 활용하는 것이다.  
+
 ### zip과 argument unpacking
 가끔씩 두 개 이상의 list를 서로 묶어 주고 싶을 때가 있다.  
 zip은 여러 개의 list를 서로 상응하는 항목의 tuple로 구성된 list로 변환해 준다.  
