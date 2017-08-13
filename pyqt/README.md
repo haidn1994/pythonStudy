@@ -2,7 +2,7 @@
 
 GUI를 위한 pyqt를 배워보자. 여기서는 pyqt5를 기준으로 배워보도록 한다.  
 
-# 가장 간단한 예제
+## 가장 간단한 예제
 
 가장 간단한 예제로 simple.py를 만들어볼 것이다.  
 
@@ -45,4 +45,82 @@ if __name__ == '__main__':
 ```
 
 자세한 설명은 주석에 달려있으니 참고하라
+
+## 아이콘 예제
+
+여기서 말하는 아이콘이란 제목 표시줄의 왼쪽 상단 모서리에 표기되는 작은 이미지를 뜻한다.  
+다음 예제에서 pyqt5로 어떻게 다루는 보여줄 것이다. 또한 새로운 방법을 소개한다.  
+
+
+일부 환경에서는 제목 표시 줄에 아이콘이 표시되지 않지만 가능하게 해야 한다.  
+아이콘이 표시되지 않는다면 튜토리얼 필자의 [stackoverflow답변](https://stackoverflow.com/questions/44080247/pyqt5-does-now-show-icons/45439678#45439678)을 참고하도록 한다.  
+
+```{.py}
+
+import sys
+from PyQt5.QtWidgets import QApplication, QWidget
+from PyQt5.QtGui import QIcon
+
+class Example(QWidget):
+
+	def __init__(self):
+		super().__init__()
+
+		self.initUI()
+	
+	def initUI(self):
+		self.setGeometry(300, 300, 300, 220)
+		self.setWindowTitle('Icon')
+		self.setWindowIcon(QIcon('web.png'))
+
+		self.show()
+
+if __name__ == '__main__':
+
+	app = QApplication(sys.argv)
+	ex = Example()
+	sys.exit(app.exac_())
+
+```
+
+사실 기능적으로 위의 예제와 크게 다르지 않다. 아이콘을 추가하는 로직과 setGeometry()를 사용했다는 것만 빼면,  
+하지만 이 코드는 객체지향적으로 코딩되었고, setGeometry()는 위에서 소개한 move()와 resize()를 한데 합쳐놓은 메소드다.  
+그리고 아이콘을 추가하는 메서드를 굉장히 직관적인 편이니 설명은 생략한다. 하지만 제대로 동작하지 않는다면 튜토리얼 저자의 stackoverflow답변을 참고하라.  
+
+
+## tooltip 보여주기
+
+pyqt5에서는 어떤 위젯에도 풍선 도움말을 붙일 수 있다.  
+
+```{.py}
+import sys
+from PyQt5.QtWidgets import(QWidget, QToolTip, QPushButton, QApplication)
+from PyQt5. QtGui import QFont
+
+class Example(QWidget)
+	def __init__(self)
+		super().__init__()
+		
+		self.initUI()
+
+	def initUI(self):
+		QToolTip.setFont(QFont('SanSerif', 10)
+
+		self.setToolTip('This is a <b>QWidget</b> widget')
+
+		btn = QPushButton('Button', self)
+		btn.setToolTip('This is a <b>QPushButton</b> widget')
+		btn.resize(btn.sizeHint())
+		btn.move(50, 50)
+
+		self.setGeometry(300, 300, 200, 200)
+		self.setWindowTitle('Tooltips')
+		self.show()
+
+if __name__ == '__main__':
+	app = QApplication(sys.argv)
+	ex = Example()
+	sys.exit(app.exec_())
+```
+
 
